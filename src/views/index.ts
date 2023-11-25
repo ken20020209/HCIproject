@@ -16,8 +16,10 @@ export const views: Record<
   component_button: () => import('./component/button/index.vue'),
   component_card: () => import('./component/card/index.vue'),
   component_table: () => import('./component/table/index.vue'),
+  customer: () => import('./customer/index.vue'),
   dashboard_analysis: () => import('./dashboard/analysis/index.vue'),
   dashboard_workbench: () => import('./dashboard/workbench/index.vue'),
+  delivery: () => import('./delivery/index.vue'),
   document_naive: () => import('./document/naive/index.vue'),
   'document_project-link': () => import('./document/project-link/index.vue'),
   document_project: () => import('./document/project/index.vue'),
@@ -45,5 +47,8 @@ export const views: Record<
   plugin_map: () => import('./plugin/map/index.vue'),
   plugin_print: () => import('./plugin/print/index.vue'),
   plugin_swiper: () => import('./plugin/swiper/index.vue'),
-  plugin_video: () => import('./plugin/video/index.vue')
+  plugin_video: () => import('./plugin/video/index.vue'),
+  restaurant: () => import('./restaurant/index.vue'),
+  restaurant_menu: () => import('./restaurant/menu/index.vue'),
+  restaurant_order: () => import('./restaurant/order/index.vue')
 };

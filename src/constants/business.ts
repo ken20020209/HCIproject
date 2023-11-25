@@ -36,3 +36,10 @@ export const userStatusLabels: Record<UserManagement.UserStatusKey, string> = {
   4: '软删除'
 };
 export const userStatusOptions = transformObjectToOption(userStatusLabels);
+
+export const foodStatusLabels: Record<FoodManagement.FoodStatusKey, string> = {
+  1: 'on stock',
+  2: 'sold out',
+  3: 'removed'
+};
+export const foodStatusOptions = transformObjectToOption(foodStatusLabels);

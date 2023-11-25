@@ -50,3 +50,22 @@ declare namespace ApiUserManagement {
     userStatus: '1' | '2' | '3' | '4' | null;
   }
 }
+
+declare namespace ApiFoodManagement {
+  interface Food {
+    /** 食物id */
+    id: string;
+    /** 食物名称 */
+    name: string | null;
+    /** 食物价格 */
+    price: number | null;
+    /** 食物数量 */
+    quantity: number | null;
+    /** 食物状态 */
+    status: '1' | '2' | '3' | null;
+    /** 食物图片 */
+    image: string | null;
+    /** 食物描述 */
+    description: string | null;
+  }
+}

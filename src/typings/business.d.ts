@@ -43,3 +43,18 @@ declare namespace UserManagement {
    */
   type UserStatusKey = NonNullable<User['userStatus']>;
 }
+declare namespace FoodManagement {
+  interface Food extends ApiFoodManagement.Food {
+    /** 序号 */
+    index: number;
+    /** 表格的key（id） */
+    key: string;
+  }
+  /**
+   * 食物状态
+   * - 1: 上架
+   * - 2: 下架
+   * - 3: 软删除
+   */
+  type FoodStatusKey = NonNullable<Food['status']>;
+}

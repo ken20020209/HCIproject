@@ -30,9 +30,11 @@ declare namespace PageRoute {
     | 'component_button'
     | 'component_card'
     | 'component_table'
+    | 'customer'
     | 'dashboard'
     | 'dashboard_analysis'
     | 'dashboard_workbench'
+    | 'delivery'
     | 'document'
     | 'document_naive'
     | 'document_project-link'
@@ -70,7 +72,10 @@ declare namespace PageRoute {
     | 'plugin_map'
     | 'plugin_print'
     | 'plugin_swiper'
-    | 'plugin_video';
+    | 'plugin_video'
+    | 'restaurant'
+    | 'restaurant_menu'
+    | 'restaurant_order';
 
   /**
    * last degree route key, which has the page file
@@ -90,8 +95,10 @@ declare namespace PageRoute {
     | 'component_button'
     | 'component_card'
     | 'component_table'
+    | 'customer'
     | 'dashboard_analysis'
     | 'dashboard_workbench'
+    | 'delivery'
     | 'document_naive'
     | 'document_project-link'
     | 'document_project'
@@ -120,5 +127,8 @@ declare namespace PageRoute {
     | 'plugin_print'
     | 'plugin_swiper'
     | 'plugin_video'
+    | 'restaurant'
+    | 'restaurant_menu'
+    | 'restaurant_order'
   >;
 }
