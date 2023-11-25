@@ -48,4 +48,4 @@ const functionRoute: AuthRoute.Route = {
   }
 };
 
-export default functionRoute;
+// export default functionRoute;

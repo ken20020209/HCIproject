@@ -42,11 +42,11 @@ export const userModel: UserModel[] = [
     refreshToken: '__REFRESH_TOKEN_USER01__',
     userId: '4',
     userName: 'UserC',
-    userRole: ' customer',
+    userRole: 'customer',
     password: 'UserC123'
   },
   {
-    token: '__TOKEN_USER01__',
+    token: '__TOKEN_UserR__',
     refreshToken: '__REFRESH_TOKEN_UserR__',
     userId: '5',
     userName: 'UserR',

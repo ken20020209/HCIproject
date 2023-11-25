@@ -6,7 +6,7 @@ declare namespace Auth {
    * - admin: 管理员
    * - user: 用户
    */
-  type RoleType = 'super' | 'admin' | 'user' | ' customer' | 'restaurant' | 'delivery';
+  type RoleType = 'super' | 'admin' | 'user' | 'customer' | 'restaurant' | 'delivery';
 
   /** 用户信息 */
   interface UserInfo {

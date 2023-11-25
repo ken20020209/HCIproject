@@ -140,6 +140,18 @@ export const useAuthStore = defineStore('auth-store', {
         user: {
           userName: 'User01',
           password: 'user01123'
+        },
+        customer: {
+          userName: 'UserC',
+          password: 'UserC123'
+        },
+        restaurant: {
+          userName: 'UserR',
+          password: 'UserR123'
+        },
+        delivery: {
+          userName: 'UserD',
+          password: 'UserD123'
         }
       };
       const { userName, password } = accounts[userRole];

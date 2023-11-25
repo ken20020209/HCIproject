@@ -14,4 +14,4 @@ const about: AuthRoute.Route = {
   }
 };
 
-export default about;
+// export default about;

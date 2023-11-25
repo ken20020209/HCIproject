@@ -45,4 +45,4 @@ const component: AuthRoute.Route = {
   }
 };
 
-export default component;
+// export default component;

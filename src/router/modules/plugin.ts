@@ -146,4 +146,4 @@ const plugin: AuthRoute.Route = {
   }
 };
 
-export default plugin;
+// export default plugin;

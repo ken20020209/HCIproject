@@ -12,7 +12,12 @@ export const loginModuleLabels: Record<UnionKey.LoginModule, string> = {
 export const userRoleLabels: Record<Auth.RoleType, string> = {
   super: $t('page.login.pwdLogin.superAdmin'),
   admin: $t('page.login.pwdLogin.admin'),
-  user: $t('page.login.pwdLogin.user')
+  user: $t('page.login.pwdLogin.user'),
+
+  // 以下为自定义的角色
+  restaurant: $t('page.login.pwdLogin.restaurant'),
+  delivery: $t('page.login.pwdLogin.delivery'),
+  customer: $t('page.login.pwdLogin.customer')
 };
 export const userRoleOptions = transformObjectToOption(userRoleLabels);
 

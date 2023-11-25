@@ -58,4 +58,4 @@ const multiMenu: AuthRoute.Route = {
   }
 };
 
-export default multiMenu;
+// export default multiMenu;

@@ -45,4 +45,4 @@ const exception: AuthRoute.Route = {
   }
 };
 
-export default exception;
+// export default exception;

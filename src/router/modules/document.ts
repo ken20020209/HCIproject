@@ -67,4 +67,4 @@ const document: AuthRoute.Route = {
   }
 };
 
-export default document;
+// export default document;

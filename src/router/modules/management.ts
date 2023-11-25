@@ -60,4 +60,4 @@ const management: AuthRoute.Route = {
   }
 };
 
-export default management;
+// export default management;
