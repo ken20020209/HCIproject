@@ -14,6 +14,14 @@ export const ROOT_ROUTE: AuthRoute.Route = {
 export const constantRoutes: AuthRoute.Route[] = [
   ROOT_ROUTE,
   {
+    name: 'landing',
+    path: '/landing',
+    component: 'self',
+    meta: {
+      title: 'Landing'
+    }
+  },
+  {
     name: 'login',
     path: '/login',
     component: 'self',
@@ -24,7 +32,7 @@ export const constantRoutes: AuthRoute.Route[] = [
       };
     },
     meta: {
-      title: '登录',
+      title: 'Login',
       dynamicPath: `/login/:module(${getLoginModuleRegExp()})?`,
       singleLayout: 'blank'
     }
@@ -34,7 +42,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/constant-page',
     component: 'self',
     meta: {
-      title: '固定页面',
+      title: 'constant-page',
       singleLayout: 'blank'
     }
   },
@@ -43,7 +51,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/403',
     component: 'self',
     meta: {
-      title: '无权限',
+      title: 'no permission',
       singleLayout: 'blank'
     }
   },
@@ -52,7 +60,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/404',
     component: 'self',
     meta: {
-      title: '未找到',
+      title: 'not found',
       singleLayout: 'blank'
     }
   },
@@ -61,7 +69,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/500',
     component: 'self',
     meta: {
-      title: '服务器错误',
+      title: 'server error',
       singleLayout: 'blank'
     }
   },
@@ -71,7 +79,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/:pathMatch(.*)*',
     component: 'blank',
     meta: {
-      title: '未找到',
+      title: 'not found',
       singleLayout: 'blank'
     }
   }

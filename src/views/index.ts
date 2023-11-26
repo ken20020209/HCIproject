@@ -32,6 +32,7 @@ export const views: Record<
   'function_tab-multi-detail': () => import('./function/tab-multi-detail/index.vue'),
   function_tab: () => import('./function/tab/index.vue'),
   function_websocket: () => import('./function/websocket/index.vue'),
+  landing: () => import('./landing/index.vue'),
   management_auth: () => import('./management/auth/index.vue'),
   management_role: () => import('./management/role/index.vue'),
   management_route: () => import('./management/route/index.vue'),
