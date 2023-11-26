@@ -15,9 +15,9 @@ export const userRoleLabels: Record<Auth.RoleType, string> = {
   user: $t('page.login.pwdLogin.user'),
 
   // 以下为自定义的角色
-  restaurant: $t('page.login.pwdLogin.restaurant'),
-  delivery: $t('page.login.pwdLogin.delivery'),
-  customer: $t('page.login.pwdLogin.customer')
+  restaurant: 'restaurant',
+  delivery: 'delivery',
+  customer: 'customer'
 };
 export const userRoleOptions = transformObjectToOption(userRoleLabels);
 

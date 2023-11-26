@@ -193,10 +193,10 @@ const locale: I18nType.Schema = {
         otherLoginMode: 'Other Login Mode',
         superAdmin: 'Super Administrator',
         admin: 'Administrator',
-        user: 'Ordinary User',
-        restaurant: 'Restaurant',
-        delivery: 'Delivery',
-        customer: 'Customer'
+        user: 'Ordinary User'
+        // restaurant: 'Restaurant',
+        // delivery: 'Delivery',
+        // customer: 'Customer'
       },
       codeLogin: {
         title: 'Verification Code Login',

@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import { createI18n } from 'vue-i18n';
 import type { TranslateOptions } from 'vue-i18n';
-import { localStg } from '@/utils/storage';
+// import { localStg } from '@/utils/storage';
 import messages from './locale';
 
 const i18n = createI18n({

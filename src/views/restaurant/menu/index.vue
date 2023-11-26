@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-hidden">
-    <n-card title="用户管理" :bordered="false" class="h-full rounded-8px shadow-sm">
+    <n-card title="Menu Management" :bordered="false" class="h-full rounded-8px shadow-sm">
       <div class="flex-col h-full">
         <n-space class="pb-12px" justify="space-between">
           <n-space>
@@ -8,14 +8,17 @@
               <icon-ic-round-plus class="mr-4px text-20px" />
               Create
             </n-button>
-            <n-button type="error">
+            <n-button type="error" @click="handleDeleteSelectedTable">
               <icon-ic-round-delete class="mr-4px text-20px" />
               Delete
             </n-button>
-            <n-button type="success">
+            <!-- <n-button type="success">
               <icon-uil:export class="mr-4px text-20px" />
               Export Excel
-            </n-button>
+            </n-button> -->
+            <!-- search bar -->
+
+            <n-input placeholder="Search" class="w-200px" />
           </n-space>
           <n-space align="center" :size="18">
             <n-button size="small" type="primary" @click="getTableData">
@@ -40,11 +43,13 @@
 </template>
 
 <script setup lang="tsx">
+// import { log, table } from 'console';
 import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 // import { genderLabels, userStatusLabels } from '@/constants';
+// import { values } from 'lodash';
 import { fetchFoodList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import { foodStatusLabels } from '~/src/constants';
@@ -71,7 +76,7 @@ async function getTableData() {
   }
 }
 
-const columns: Ref<DataTableColumns<ApiFoodManagement.Food>> = ref([
+const columns: Ref<DataTableColumns<FoodManagement.Food>> = ref([
   {
     type: 'selection',
     align: 'center'
@@ -149,9 +154,9 @@ function setModalType(type: ModalType) {
   modalType.value = type;
 }
 
-const editData = ref<UserManagement.User | null>(null);
+const editData = ref<FoodManagement.Food | null>(null);
 
-function setEditData(data: UserManagement.User | null) {
+function setEditData(data: FoodManagement.Food | null) {
   editData.value = data;
 }
 
@@ -169,8 +174,15 @@ function handleEditTable(rowId: string) {
   openModal();
 }
 
+// delete table when selected
+function handleDeleteSelectedTable() {
+  window.$message?.info('deleted selected');
+
+  // get n-table
+}
 function handleDeleteTable(rowId: string) {
   window.$message?.info(`click to deleted rowId: ${rowId}`);
+  tableData.value = tableData.value.filter(item => item.id !== rowId);
 }
 
 const pagination: PaginationProps = reactive({

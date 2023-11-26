@@ -8,19 +8,14 @@
         <n-form-item-grid-item :span="12" label="price" path="price">
           <n-input-number v-model:value="formModel.price" clearable />
         </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="image" path="image">
+        <!-- <n-form-item-grid-item :span="12" label="image" path="image">
           <n-image v-model:src="formModel.image"></n-image>
+        </n-form-item-grid-item> -->
+        <n-form-item-grid-item :span="12" label="image" path="image">
+          <n-upload :default-file-list="fileList" list-type="image-card">+</n-upload>
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="12" label="description" path="description">
           <n-input v-model:value="formModel.description" type="textarea" :autosize="{ minRows: 3 }" />
-        </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="upload" path="upload">
-          <n-upload>
-            <n-button>Click to upload</n-button>
-            <!-- <n-upload-dragger>
-              <p class="upload-text">Drag file to upload</p>
-            </n-upload-dragger> -->
-          </n-upload>
         </n-form-item-grid-item>
 
         <n-form-item-grid-item :span="12" label="status" path="status">
@@ -37,9 +32,10 @@
 
 <script setup lang="ts">
 import { ref, computed, reactive, watch } from 'vue';
-import type { FormInst, FormItemRule } from 'naive-ui';
+import type { FormInst, FormItemRule, UploadFileInfo } from 'naive-ui';
+// import { from } from 'form-data';
 import { foodStatusOptions } from '@/constants';
-import { formRules, createRequiredFormRule } from '@/utils';
+import { createRequiredFormRule } from '@/utils';
 
 export interface Props {
   /** 弹窗可见性 */
@@ -95,10 +91,12 @@ type FormModel = Pick<FoodManagement.Food, 'name' | 'price' | 'image' | 'descrip
 
 const formModel = reactive<FormModel>(createDefaultFormModel());
 
+const fileList = ref<UploadFileInfo[]>([]);
+
 const rules: Record<keyof FormModel, FormItemRule | FormItemRule[]> = {
   name: createRequiredFormRule('enter name'),
   price: createRequiredFormRule('enter price'),
-  image: createRequiredFormRule('请选择性别'),
+  image: createRequiredFormRule('upload image'),
   description: createRequiredFormRule('enter description'),
   status: createRequiredFormRule('select status')
 };
@@ -115,6 +113,18 @@ function createDefaultFormModel(): FormModel {
 
 function handleUpdateFormModel(model: Partial<FormModel>) {
   Object.assign(formModel, model);
+  if (model.image?.length !== 0) {
+    fileList.value = [
+      {
+        id: '1',
+        name: 'image',
+        status: 'finished',
+        url: `${model.image}.png`
+      }
+    ];
+  } else {
+    fileList.value = [];
+  }
 }
 
 function handleUpdateFormModelByModalType() {
@@ -135,7 +145,7 @@ function handleUpdateFormModelByModalType() {
 
 async function handleSubmit() {
   await formRef.value?.validate();
-  window.$message?.success('add success!');
+  window.$message?.success('success!');
   closeModal();
 }
 

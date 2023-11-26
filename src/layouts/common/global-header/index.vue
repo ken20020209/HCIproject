@@ -7,11 +7,11 @@
     </div>
     <header-menu v-else />
     <div class="flex justify-end h-full">
-      <global-search />
-      <github-site />
+      <!-- <global-search /> -->
+      <!-- <github-site /> -->
       <full-screen />
       <theme-mode />
-      <toggle-lang />
+      <!-- <toggle-lang /> -->
       <system-message />
       <setting-button v-if="showButton" />
       <user-avatar />
@@ -23,18 +23,18 @@
 import { useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import GlobalLogo from '../global-logo/index.vue';
-import GlobalSearch from '../global-search/index.vue';
+// import GlobalSearch from '../global-search/index.vue';
 import {
   FullScreen,
-  GithubSite,
+  // GithubSite,
   GlobalBreadcrumb,
   HeaderMenu,
   MenuCollapse,
   SettingButton,
   SystemMessage,
   ThemeMode,
-  UserAvatar,
-  ToggleLang
+  UserAvatar
+  // ToggleLang
 } from './components';
 
 defineOptions({ name: 'GlobalHeader' });

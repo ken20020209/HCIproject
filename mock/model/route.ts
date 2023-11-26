@@ -1,4 +1,7 @@
 export const routeModel: Record<Auth.RoleType, AuthRoute.Route[]> = {
+  restaurant: [],
+  delivery: [],
+  customer: [],
   super: [
     {
       name: 'dashboard',
