@@ -73,5 +73,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "prettier": {}
+  "prettier": {},
+  "i18n-ally.sourceLanguage": "en"
 }

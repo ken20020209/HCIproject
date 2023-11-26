@@ -2,7 +2,20 @@
   <n-form ref="formRef" :model="model" :rules="rules" size="large" :show-label="false">
     <n-form-item path="role">
       <n-space>
-        <n-button v-for="role in roles" :key="role" @click="curRole = role">
+        <n-button
+          v-for="role in roles"
+          :key="role"
+          @click="
+            curRole = role;
+            model.username = '';
+            model.phone = '';
+            model.code = '';
+            model.pwd = '';
+            model.confirmPwd = '';
+            model.restaurantName = '';
+            model.restaurantAddress = '';
+          "
+        >
           {{ role }}
         </n-button>
       </n-space>
@@ -14,7 +27,7 @@
       <div v-if="curRole">
         {{ curRole }}
         <n-form-item path="username">
-          <n-input placeholder="Please enter user name" />
+          <n-input v-model:value="model.username" placeholder="Please enter user name" />
         </n-form-item>
         <n-form-item path="phone">
           <n-input v-model:value="model.phone" :placeholder="$t('page.login.common.phonePlaceholder')" />
@@ -46,12 +59,16 @@
         </n-form-item>
         <transition name="fade">
           <n-form-item v-if="curRole == 'restaurant'" path="restaurantName">
-            <n-input placeholder="Please enter restaurant name" />
+            <n-input v-model:value="model.restaurantName" placeholder="Please enter restaurant name" />
           </n-form-item>
         </transition>
         <transition name="fade">
           <n-form-item v-if="curRole == 'restaurant'" path="restaurantAddress">
-            <n-input type="textarea" placeholder="Please enter restaurant address" />
+            <n-input
+              v-model:value="model.restaurantAddress"
+              type="textarea"
+              placeholder="Please enter restaurant address"
+            />
           </n-form-item>
         </transition>
         <n-space :vertical="true" :size="18">
@@ -71,9 +88,10 @@
 <script lang="ts" setup>
 import { reactive, ref, toRefs } from 'vue';
 import type { FormInst, FormRules } from 'naive-ui';
+// import { create, rest } from 'lodash';
 import { useRouterPush } from '@/composables';
 import { useSmsCode } from '@/hooks';
-import { formRules, getConfirmPwdRule } from '@/utils';
+import { createRequiredFormRule, formRules, getConfirmPwdRule } from '@/utils';
 import { $t } from '@/locales';
 
 const { toLoginModule } = useRouterPush();
@@ -85,7 +103,10 @@ const model = reactive({
   phone: '',
   code: '',
   pwd: '',
-  confirmPwd: ''
+  confirmPwd: '',
+  username: '',
+  restaurantName: '',
+  restaurantAddress: ''
 });
 
 const curRole = ref<string>('');
@@ -96,7 +117,10 @@ const rules: FormRules = {
   phone: formRules.phone,
   code: formRules.code,
   pwd: formRules.pwd,
-  confirmPwd: getConfirmPwdRule(toRefs(model).pwd)
+  username: [createRequiredFormRule('Please enter user name')],
+  confirmPwd: getConfirmPwdRule(toRefs(model).pwd),
+  restaurantName: createRequiredFormRule('Please enter restaurant name'),
+  restaurantAddress: createRequiredFormRule('Please enter restaurant address')
 };
 
 const agreement = ref(false);
