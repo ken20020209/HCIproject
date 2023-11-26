@@ -8,8 +8,8 @@ export default function useSmsCode() {
   const { loading, startLoading, endLoading } = useLoading();
   const { counts, start, isCounting } = useCountDown(60);
 
-  const initLabel = '获取验证码';
-  const countingLabel = (second: number) => `${second}秒后重新获取`;
+  const initLabel = 'get verification code';
+  const countingLabel = (second: number) => `${second}s resend`;
   const label = computed(() => {
     let text = initLabel;
     if (loading.value) {
@@ -25,10 +25,10 @@ export default function useSmsCode() {
   function isPhoneValid(phone: string) {
     let valid = true;
     if (phone.trim() === '') {
-      window.$message?.error('手机号码不能为空！');
+      window.$message?.error('Please enter phone number！');
       valid = false;
     } else if (!REGEXP_PHONE.test(phone)) {
-      window.$message?.error('手机号码格式错误！');
+      window.$message?.error('Invalid phone number format！');
       valid = false;
     }
     return valid;
@@ -45,7 +45,7 @@ export default function useSmsCode() {
     startLoading();
     const { data } = await fetchSmsCode(phone);
     if (data) {
-      window.$message?.success('验证码发送成功！');
+      window.$message?.success('Verification code sent successfully！');
       start();
     }
     endLoading();

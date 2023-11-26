@@ -22,18 +22,23 @@ interface CustomFormRules {
 /** 表单规则 */
 export const formRules: CustomFormRules = {
   phone: [
-    createRequiredFormRule('请输入手机号码'),
-    { pattern: REGEXP_PHONE, message: '手机号码格式错误', trigger: 'input' }
+    createRequiredFormRule('Please enter phone number'),
+    { pattern: REGEXP_PHONE, message: 'wrong phone number formate', trigger: 'input' }
   ],
   pwd: [
-    createRequiredFormRule('请输入密码'),
-    { pattern: REGEXP_PWD, message: '密码为6-18位数字/字符/符号，至少2种组合', trigger: 'input' }
+    createRequiredFormRule('Please enter password'),
+    // 密码为6-18位数字/字符/符号，至少2种组合
+    {
+      pattern: REGEXP_PWD,
+      message: 'Password must be 6-18 characters long and contain at least 2 types of characters',
+      trigger: 'input'
+    }
   ],
   code: [
-    createRequiredFormRule('请输入验证码'),
-    { pattern: REGEXP_CODE_SIX, message: '验证码格式错误', trigger: 'input' }
+    createRequiredFormRule('Please enter verification code'),
+    { pattern: REGEXP_CODE_SIX, message: 'Invalid verification code format', trigger: 'input' }
   ],
-  email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }]
+  email: [{ pattern: REGEXP_EMAIL, message: 'Invalid email format', trigger: 'blur' }]
 };
 
 /** 是否为空字符串 */
@@ -44,7 +49,7 @@ function isBlankString(str: string) {
 /** 获取确认密码的表单规则 */
 export function getConfirmPwdRule(pwd: Ref<string>) {
   const confirmPwdRule: FormItemRule[] = [
-    { required: true, message: '请输入确认密码' },
+    { required: true, message: 'Please enter password' },
     {
       validator: (rule, value) => {
         if (!isBlankString(value) && value !== pwd.value) {
@@ -52,7 +57,7 @@ export function getConfirmPwdRule(pwd: Ref<string>) {
         }
         return Promise.resolve();
       },
-      message: '输入的值与密码不一致',
+      message: 'The input value does not match the password',
       trigger: 'input'
     }
   ];
@@ -62,7 +67,7 @@ export function getConfirmPwdRule(pwd: Ref<string>) {
 /** 获取图片验证码的表单规则 */
 export function getImgCodeRule(imgCode: Ref<string>) {
   const imgCodeRule: FormItemRule[] = [
-    { required: true, message: '请输入验证码' },
+    { required: true, message: 'enter the verification code' },
     {
       validator: (rule, value) => {
         if (!isBlankString(value) && value !== imgCode.value) {
@@ -70,7 +75,7 @@ export function getImgCodeRule(imgCode: Ref<string>) {
         }
         return Promise.resolve();
       },
-      message: '验证码不正确',
+      message: 'The verification code is incorrect',
       trigger: 'blur'
     }
   ];

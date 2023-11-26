@@ -1,8 +1,8 @@
 <template>
   <div class="w-full text-14px">
-    <n-checkbox v-model:checked="checked">我已经仔细阅读并接受</n-checkbox>
-    <n-button :text="true" type="primary" @click="handleClickProtocol">《用户协议》</n-button>
-    <n-button :text="true" type="primary" @click="handleClickPolicy">《隐私权政策》</n-button>
+    <n-checkbox v-model:checked="checked">I have read and agree to</n-checkbox>
+    <n-button :text="true" type="primary" @click="handleClickProtocol">《User Agreement》</n-button>
+    <n-button :text="true" type="primary" @click="handleClickPolicy">《Privacy Policy》</n-button>
   </div>
 </template>
 
