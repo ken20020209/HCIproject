@@ -1,3 +1,5 @@
+// import restaurant from '../router/modules/restaurant';
+
 /** 用户相关模块 */
 declare namespace Auth {
   /**
@@ -57,4 +59,36 @@ declare namespace FoodManagement {
    * - 3: 软删除
    */
   type FoodStatusKey = NonNullable<Food['status']>;
+}
+
+declare namespace OrderManagement {
+  interface Order extends ApiOrderManagement.Order {
+    /** 序号 */
+    index: number;
+    /** 表格的key（id） */
+    key: string;
+  }
+  /**
+   * 订单状态
+   * - 1: 已下单
+   * - 2: 已接单
+   * - 3: 已完成
+   * - 4: 已取消
+   */
+  type OrderStatusKey = NonNullable<Order['status']>;
+}
+declare namespace RestaurantManagement {
+  interface Restaurant extends ApiRestaurantManagement.Restaurant {
+    /** 序号 */
+    index: number;
+    /** 表格的key（id） */
+    key: string;
+  }
+  /**
+   * 餐厅状态
+   * - 1: 启用
+   * - 2: 禁用
+   * - 3: 软删除
+   */
+  // type restaurantStatusKey = NonNullable<restaurant['status']>;
 }

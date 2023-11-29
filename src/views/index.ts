@@ -17,6 +17,7 @@ export const views: Record<
   component_card: () => import('./component/card/index.vue'),
   component_table: () => import('./component/table/index.vue'),
   customer: () => import('./customer/index.vue'),
+  customer_restaurant: () => import('./customer/restaurant/index.vue'),
   dashboard_analysis: () => import('./dashboard/analysis/index.vue'),
   dashboard_workbench: () => import('./dashboard/workbench/index.vue'),
   delivery: () => import('./delivery/index.vue'),

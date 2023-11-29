@@ -43,3 +43,13 @@ export const foodStatusLabels: Record<FoodManagement.FoodStatusKey, string> = {
   3: 'removed'
 };
 export const foodStatusOptions = transformObjectToOption(foodStatusLabels);
+
+export const orderStatusLabels: Record<OrderManagement.OrderStatusKey, string> = {
+  // english
+  1: 'pending',
+  2: 'confirmed',
+  3: 'delivered',
+  4: 'completed',
+  5: 'cancelled'
+};
+export const orderStatusOptions = transformObjectToOption(orderStatusLabels);

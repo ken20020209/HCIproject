@@ -91,12 +91,10 @@ declare namespace ApiOrderManagement {
     id: string;
     // name
     name: string;
-    // use interface food
-    foods: ApiFoodManagement.Food[];
     // time
     time: string;
     /** 订单状态 */
-    status: '1' | '2' | '3' | null;
+    status: '1' | '2' | '3' | '4' | '5' | null;
     /** 订单总价 */
     price: number | null;
     /** 订单地址 */

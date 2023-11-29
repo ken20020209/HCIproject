@@ -3,32 +3,21 @@ import type { MockMethod } from 'vite-plugin-mock';
 
 const apis: MockMethod[] = [
   {
-    url: '/mock/getAllFoodList',
+    url: '/mock/getAllOrderList',
     method: 'post',
-    response: (): Service.MockServiceResult<ApiFoodManagement.Food[]> => {
+    response: (): Service.MockServiceResult<ApiOrderManagement.Order[]> => {
       const data = mock({
         'list|20': [
           {
             id: '@id',
-            name: '@name',
-            // get form food api
-            foods: mock({
-              'list|5': [
-                {
-                  id: '@id',
-                  name: '@name',
-                  price: '@integer(1, 100)',
-                  image: '@image(200x200)',
-                  description: '@paragraph(1, 3)',
-                  'status|1': ['1', '2', '3']
-                }
-              ]
-            }),
-            price: '@integer(1, 100)',
+            customerName: '@name',
+
+            totalPrice: '@integer(1, 100)',
             address: '@county(true)',
             phone: '@integer(00000000, 99999999)',
-            description: '@paragraph(1, 3)',
-            'status|1': ['1', '2', '3']
+            description: '@paragraph(1, 1)',
+            'status|1': ['1', '2', '3', '4', '5'],
+            time: '@datetime'
           }
         ]
       });
