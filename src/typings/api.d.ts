@@ -69,3 +69,41 @@ declare namespace ApiFoodManagement {
     description: string | null;
   }
 }
+declare namespace ApiRestaurantManagement {
+  interface Restaurant {
+    /** 餐厅id */
+    id: string;
+    /** 餐厅名称 */
+    name: string | null;
+    /** 餐厅地址 */
+    address: string | null;
+    /** 餐厅电话 */
+    phone: string | null;
+    /** 餐厅图片 */
+    image: string | null;
+    /** 餐厅描述 */
+    description: string | null;
+  }
+}
+declare namespace ApiOrderManagement {
+  interface Order {
+    /** 订单id */
+    id: string;
+    // name
+    name: string;
+    // use interface food
+    foods: ApiFoodManagement.Food[];
+    // time
+    time: string;
+    /** 订单状态 */
+    status: '1' | '2' | '3' | null;
+    /** 订单总价 */
+    price: number | null;
+    /** 订单地址 */
+    address: string | null;
+    /** 订单电话 */
+    phone: string | null;
+    /** 订单描述 */
+    description: string | null;
+  }
+}
