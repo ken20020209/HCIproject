@@ -76,7 +76,8 @@ declare namespace PageRoute {
     | 'plugin_video'
     | 'restaurant'
     | 'restaurant_menu'
-    | 'restaurant_order';
+    | 'restaurant_order'
+    | 'userManagement';
 
   /**
    * last degree route key, which has the page file
@@ -132,5 +133,6 @@ declare namespace PageRoute {
     | 'restaurant'
     | 'restaurant_menu'
     | 'restaurant_order'
+    | 'userManagement'
   >;
 }
