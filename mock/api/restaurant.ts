@@ -7,7 +7,7 @@ const apis: MockMethod[] = [
     method: 'post',
     response: (): Service.MockServiceResult<ApiFoodManagement.Food[]> => {
       const data = mock({
-        'list|100': [
+        'list|50': [
           {
             id: '@id',
             name: '@name',

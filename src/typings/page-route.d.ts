@@ -79,8 +79,6 @@ declare namespace PageRoute {
     | 'plugin_swiper'
     | 'plugin_video'
     | 'restaurant'
-    | 'restaurant_menu'
-    | 'restaurant_order'
     | 'userManagement';
 
   /**
@@ -139,8 +137,6 @@ declare namespace PageRoute {
     | 'plugin_swiper'
     | 'plugin_video'
     | 'restaurant'
-    | 'restaurant_menu'
-    | 'restaurant_order'
     | 'userManagement'
   >;
 }

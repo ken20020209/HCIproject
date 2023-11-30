@@ -10,8 +10,9 @@
 <script lang="ts" setup>
 import type { DropdownOption } from 'naive-ui';
 import { useAuthStore, useThemeStore } from '@/store';
-import { useIconRender } from '@/composables';
+import { useIconRender, useRouterPush } from '@/composables';
 
+const { routerPush } = useRouterPush();
 defineOptions({ name: 'UserAvatar' });
 
 const auth = useAuthStore();
@@ -20,7 +21,7 @@ const { iconRender } = useIconRender();
 
 const options: DropdownOption[] = [
   {
-    label: '用户中心',
+    label: 'user info',
     key: 'user-center',
     icon: iconRender({ icon: 'carbon:user-avatar' })
   },
@@ -29,7 +30,7 @@ const options: DropdownOption[] = [
     key: 'divider'
   },
   {
-    label: '退出登录',
+    label: 'logout',
     key: 'logout',
     icon: iconRender({ icon: 'carbon:logout' })
   }
@@ -41,14 +42,17 @@ function handleDropdown(optionKey: string) {
   const key = optionKey as DropdownKey;
   if (key === 'logout') {
     window.$dialog?.info({
-      title: '提示',
-      content: '您确定要退出登录吗？',
-      positiveText: '确定',
-      negativeText: '取消',
+      title: 'Tips',
+      content: 'Confirm to logout?',
+      positiveText: 'Confirm',
+      negativeText: 'Cancel',
       onPositiveClick: () => {
         auth.resetAuthStore();
       }
     });
+  } else if (key === 'user-center') {
+    // window.$message?.info('user info');
+    routerPush({ path: '/userManagement' });
   }
 }
 </script>

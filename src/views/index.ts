@@ -54,7 +54,5 @@ export const views: Record<
   plugin_swiper: () => import('./plugin/swiper/index.vue'),
   plugin_video: () => import('./plugin/video/index.vue'),
   restaurant: () => import('./restaurant/index.vue'),
-  restaurant_menu: () => import('./restaurant/menu/index.vue'),
-  restaurant_order: () => import('./restaurant/order/index.vue'),
   userManagement: () => import('./userManagement/index.vue')
 };

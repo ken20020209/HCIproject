@@ -74,13 +74,13 @@ declare namespace ApiRestaurantManagement {
     /** 餐厅id */
     id: string;
     /** 餐厅名称 */
-    name: string | null;
+    name: string | undefined;
     /** 餐厅地址 */
     address: string | null;
     /** 餐厅电话 */
     phone: string | null;
     /** 餐厅图片 */
-    image: string | null;
+    image: string | undefined;
     /** 餐厅描述 */
     description: string | null;
   }

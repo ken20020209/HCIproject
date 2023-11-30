@@ -45,7 +45,7 @@ interface Order extends OrderManagement.Order {
 
 const columns: DataTableColumn<Order>[] = [
   {
-    title: 'index',
+    title: 'ID',
     key: 'index',
     align: 'center'
   },

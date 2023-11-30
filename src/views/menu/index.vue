@@ -44,7 +44,7 @@
 
 <script setup lang="tsx">
 // import { log, table } from 'console';
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
@@ -202,7 +202,9 @@ const pagination: PaginationProps = reactive({
 function init() {
   getTableData();
 }
-
+onMounted(() => {
+  init();
+});
 // 初始化
 init();
 </script>

@@ -1,124 +1,99 @@
 <template>
-  <div class="h-full overflow-hidden">
-    <n-card title="表格" :bordered="false" class="h-full rounded-8px shadow-sm">
-      <n-space :vertical="true">
-        <n-space>
-          <n-button @click="getDataSource">有数据</n-button>
-          <n-button @click="getEmptyDataSource">空数据</n-button>
-        </n-space>
-        <loading-empty-wrapper class="h-480px" :loading="loading" :empty="empty">
-          <n-data-table :columns="columns" :data="dataSource" :flex-height="true" class="h-480px" />
-        </loading-empty-wrapper>
-      </n-space>
-    </n-card>
+  <div>
+    <n-space>
+      <div class="h-full">
+        <n-card>
+          <n-carousel :space-between="30" :loop="false" slides-per-view="auto" centered-slides draggable>
+            <n-carousel-item style="width: 30%">
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
+              />
+            </n-carousel-item>
+            <n-carousel-item style="width: 30%">
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+              />
+            </n-carousel-item>
+            <n-carousel-item style="width: 30%">
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+              />
+            </n-carousel-item>
+            <n-carousel-item style="width: 30%">
+              <img
+                class="carousel-img"
+                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+              />
+            </n-carousel-item>
+          </n-carousel>
+        </n-card>
+      </div>
+    </n-space>
+
+    <div class="h-full">
+      <n-grid :x-gap="16" :y-gap="16" cols="2 s:3 m:4 l:6 xl:8 2xl:10" responsive="screen">
+        <n-grid-item v-for="row in restaurant" :key="row.key">
+          <n-space>
+            <n-card :title="row.name">
+              <n-space>
+                <n-image :src="row.image"></n-image>
+              </n-space>
+              <n-space justify="center">
+                <n-statistic :value="3.5">
+                  <template #suffix>/ 5</template>
+                </n-statistic>
+              </n-space>
+              <n-space justify="center"><n-button :on-click="openDetail">Detail</n-button></n-space>
+            </n-card>
+          </n-space>
+        </n-grid-item>
+      </n-grid>
+    </div>
   </div>
 </template>
 
-<script setup lang="tsx">
-import { onMounted, ref } from 'vue';
-import { NSpace, NButton, NPopconfirm } from 'naive-ui';
-import type { DataTableColumn } from 'naive-ui';
-import { useLoadingEmpty } from '@/hooks';
-import { getRandomInteger } from '@/utils';
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useLoadingBar } from 'naive-ui';
+import { fetchRestaurantList } from '@/service';
+import { useRouterPush } from '@/composables';
 
-interface DataSource {
-  name: string;
-  age: number;
-  address: string;
-}
+const loadingBar = useLoadingBar();
 
-const { loading, startLoading, endLoading, empty, setEmpty } = useLoadingEmpty();
+const restaurant = ref<RestaurantManagement.Restaurant[]>([]);
+const { routerPush } = useRouterPush();
 
-const columns: DataTableColumn<DataSource>[] = [
-  {
-    title: 'Name',
-    key: 'name',
-    align: 'center'
-  },
-  {
-    title: 'Age',
-    key: 'age',
-    align: 'center'
-  },
-  {
-    title: 'Address',
-    key: 'address',
-    align: 'center'
-  },
-  {
-    key: 'action',
-    title: 'Action',
-    align: 'center',
-    render: row => {
-      return (
-        <NSpace justify={'center'}>
-          <NButton
-            size={'small'}
-            onClick={() => {
-              handleEdit(row.name);
-            }}
-          >
-            编辑
-          </NButton>
-          <NPopconfirm
-            onPositiveClick={() => {
-              handleDelete(row.name);
-            }}
-          >
-            {{
-              default: () => '确认删除',
-              trigger: () => <NButton size={'small'}>删除</NButton>
-            }}
-          </NPopconfirm>
-        </NSpace>
-      );
-    }
+async function fetchRestaurant() {
+  loadingBar.start();
+  const { data } = await fetchRestaurantList();
+  if (data) {
+    setTimeout(() => {
+      restaurant.value = data;
+      loadingBar.finish();
+    }, 1000);
   }
-];
-
-const dataSource = ref<DataSource[]>([]);
-
-function createDataSource(): DataSource[] {
-  return Array(100)
-    .fill(1)
-    .map((_item, index) => {
-      return {
-        name: `Name${index}`,
-        age: getRandomInteger(30, 20),
-        address: '中国'
-      };
-    });
 }
 
-function getDataSource() {
-  startLoading();
-  setTimeout(() => {
-    dataSource.value = createDataSource();
-    endLoading();
-    setEmpty(!dataSource.value.length);
-  }, 1000);
-}
+const openDetail = () => {
+  window.$message?.info('detail');
+  routerPush({ path: '/menu' });
+};
 
-function getEmptyDataSource() {
-  startLoading();
-  setTimeout(() => {
-    dataSource.value = [];
-    endLoading();
-    setEmpty(!dataSource.value.length);
-  }, 1000);
-}
+// onMounted(() => {
+//   fetchRestaurant();
+// });
 
-function handleEdit(_name: string) {
-  //
-}
-
-function handleDelete(_name: string) {
-  //
-}
-
-onMounted(() => {
-  getDataSource();
-});
+fetchRestaurant();
 </script>
 
-<style scoped></style>
+<style scoped>
+.carousel-img {
+  margin: 0 auto;
+
+  height: 100%;
+  object-fit: cover;
+}
+</style>

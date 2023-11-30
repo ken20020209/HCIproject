@@ -7,7 +7,7 @@ const apis: MockMethod[] = [
     method: 'post',
     response: (): Service.MockServiceResult<ApiOrderManagement.Order[]> => {
       const data = mock({
-        'list|20': [
+        'list|30': [
           {
             id: '@id',
             customerName: '@name',
@@ -15,7 +15,7 @@ const apis: MockMethod[] = [
             totalPrice: '@integer(1, 100)',
             address: '@county(true)',
             phone: '@integer(00000000, 99999999)',
-            description: '@paragraph(1, 1)',
+            'description|1': ['NA', 'no onion', 'no salt', 'no pepper'],
             'status|1': ['1', '2', '3', '4', '5'],
             time: '@datetime'
           }
