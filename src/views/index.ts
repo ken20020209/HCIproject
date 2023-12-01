@@ -13,6 +13,7 @@ export const views: Record<
   about: () => import('./about/index.vue'),
   'auth-demo_permission': () => import('./auth-demo/permission/index.vue'),
   'auth-demo_super': () => import('./auth-demo/super/index.vue'),
+  checkout: () => import('./checkout/index.vue'),
   component_button: () => import('./component/button/index.vue'),
   component_card: () => import('./component/card/index.vue'),
   component_table: () => import('./component/table/index.vue'),

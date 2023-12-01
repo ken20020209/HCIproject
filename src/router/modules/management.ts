@@ -56,8 +56,9 @@ const management: AuthRoute.Route = {
     title: '系统管理',
     i18nTitle: 'routes.management._value',
     icon: 'carbon:cloud-service-management',
-    order: 9
+    order: 9,
+    hide: true
   }
 };
 
-// export default management;
+export default management;

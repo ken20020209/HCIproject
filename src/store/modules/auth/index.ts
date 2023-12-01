@@ -40,8 +40,8 @@ export const useAuthStore = defineStore('auth-store', {
 
       clearAuthStorage();
       this.$reset();
-
       if (route.meta.requiresAuth) {
+        // console.log('auth-store.ts: 135: this.resetAuthStore: route.meta.requiresAuth: ', route.meta.requiresAuth);
         toLogin();
       }
 

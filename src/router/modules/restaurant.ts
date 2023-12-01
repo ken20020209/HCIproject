@@ -4,9 +4,11 @@ const restaurant: AuthRoute.Route = {
   component: 'self',
   meta: {
     title: 'restaurant',
-    // permissions: ['restaurant', 'super'],
     singleLayout: 'basic',
-    icon: 'mdi:restaurant'
+    icon: 'mdi:restaurant',
+    requiresAuth: true,
+    permissions: ['super', 'customer'],
+    order: 0
   }
 };
 

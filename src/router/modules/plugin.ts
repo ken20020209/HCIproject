@@ -142,8 +142,9 @@ const plugin: AuthRoute.Route = {
     title: '插件示例',
     i18nTitle: 'routes.plugin._value',
     icon: 'clarity:plugin-line',
-    order: 4
+    order: 4,
+    hide: true
   }
 };
 
-// export default plugin;
+export default plugin;

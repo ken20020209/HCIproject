@@ -137,6 +137,19 @@ export const useRouteStore = defineStore('route-store', {
       const { initHomeTab } = useTabStore();
       const auth = useAuthStore();
 
+      if (auth.userInfo.userRole === 'customer') {
+        staticRoutes.forEach(route => {
+          if (route.name === 'menu') {
+            route.meta.hide = true;
+          }
+        });
+      } else {
+        staticRoutes.forEach(route => {
+          if (route.name === 'menu') {
+            route.meta.hide = false;
+          }
+        });
+      }
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
       this.handleAuthRoute(routes);
 

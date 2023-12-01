@@ -22,7 +22,7 @@
         <n-tag type="success" size="large">Total: ${{ totalPrice }}</n-tag>
 
         <n-button type="error" @click="foodCart.clearCart()">Clear Cart</n-button>
-        <n-button type="success">PAY</n-button>
+        <n-button type="success" @click="handlePay">PAY</n-button>
       </n-space>
     </n-drawer-content>
   </n-drawer>
@@ -32,10 +32,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useAppStore, useCartStore } from '@/store';
+import { useRouterPush } from '@/composables';
 import { DrawerButton } from './components';
 
 defineOptions({ name: 'SettingDrawer' });
-
+const { routerPush } = useRouterPush();
 const app = useAppStore();
 const title = ref('Cart');
 const foodCart = useCartStore();
@@ -51,6 +52,15 @@ const totalPrice = computed(() => {
   }, 0);
   return count;
 });
+
+const handlePay = () => {
+  app.closeSettingDrawer();
+  if (foods.length === 0) {
+    window.$message?.error('Please add food to cart first!');
+    return;
+  }
+  routerPush({ path: '/checkout' });
+};
 </script>
 
 <style scoped></style>

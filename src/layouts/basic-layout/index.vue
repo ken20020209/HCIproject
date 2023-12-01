@@ -34,19 +34,20 @@
     </template>
   </admin-layout>
   <n-back-top :key="theme.scrollMode" :listen-to="`#${app.scrollElId}`" class="z-100" />
-  <setting-drawer />
+  <setting-drawer v-if="hasPermission('customer')" />
 </template>
 
 <script setup lang="ts">
 import { AdminLayout } from '@soybeanjs/vue-materials';
 import { useAppStore, useThemeStore } from '@/store';
-import { useBasicLayout } from '@/composables';
+import { useBasicLayout, usePermission } from '@/composables';
 import { GlobalContent, GlobalFooter, GlobalHeader, GlobalSider, GlobalTab, SettingDrawer } from '../common';
 
 defineOptions({ name: 'BasicLayout' });
 
 const app = useAppStore();
 const theme = useThemeStore();
+const { hasPermission } = usePermission();
 
 const { mode, isMobile, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>

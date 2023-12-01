@@ -12,5 +12,10 @@ const order: AuthRoute.Route = {
     requiresAuth: true
   }
 };
-
 export default order;
+// import { usePermission } from '@/composables';
+// const { hasPermission } = usePermission();
+
+// if (hasPermission('customer')) {
+//   order.meta.hide = true;
+// }
