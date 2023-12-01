@@ -13,7 +13,14 @@ const apis: MockMethod[] = [
             name: '@name',
             address: '@county(true)',
             phone: '@integer(10000000000, 19999999999)',
-            image: '@image(200x200)',
+            // image: '@image(200x200)',
+            'image|1': [
+              '/food/kp.png',
+              '/food/malai-kofta.png',
+              '/food/tsr.png',
+              '/food/veg-sandwich.png',
+              '/food/missal-pav.png'
+            ],
             description: '@paragraph(1, 3)'
           }
         ]

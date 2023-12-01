@@ -78,7 +78,7 @@ async function fetchRestaurant() {
 }
 
 const openDetail = () => {
-  window.$message?.info('detail');
+  // window.$message?.info('detail');
   routerPush({ path: '/menu' });
 };
 

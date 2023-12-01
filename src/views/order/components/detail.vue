@@ -47,21 +47,21 @@
             <tbody>
               <tr>
                 <td>Chicken</td>
-                <td><n-image src="/chenna-poda.png"></n-image></td>
+                <td><n-image src="/food/chenna-poda.png"></n-image></td>
                 <td>10</td>
                 <td>2</td>
                 <td>20</td>
               </tr>
               <tr>
                 <td>Chicken</td>
-                <td><n-image src="/pani-puri.png"></n-image></td>
+                <td><n-image src="/food/pani-puri.png"></n-image></td>
                 <td>10</td>
                 <td>2</td>
                 <td>20</td>
               </tr>
               <tr>
                 <td>Chicken</td>
-                <td><n-image src="/kp.png"></n-image></td>
+                <td><n-image src="/food/kp.png"></n-image></td>
                 <td>10</td>
                 <td>2</td>
                 <td>20</td>

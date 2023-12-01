@@ -6,7 +6,7 @@ const order: AuthRoute.Route = {
     title: 'menu',
     icon: 'mdi:menu',
     singleLayout: 'basic',
-    permissions: ['restaurant', 'super'],
+    permissions: ['restaurant', 'super', 'customer'],
     // i18nTitle: 'routes.dashboard._value'
 
     requiresAuth: true

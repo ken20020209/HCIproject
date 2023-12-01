@@ -6,7 +6,7 @@
     @click="app.toggleSettingDrawerVisible"
   >
     <icon-ant-design-close-outlined v-if="app.settingDrawerVisible" class="text-24px" />
-    <icon-ant-design-setting-outlined v-else class="text-24px" />
+    <icon-mdi-pin v-else class="text-24px" />
   </n-button>
 </template>
 

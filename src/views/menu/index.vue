@@ -4,13 +4,17 @@
       <div class="flex-col h-full">
         <n-space class="pb-12px" justify="space-between">
           <n-space>
-            <n-button type="primary" @click="handleAddTable">
+            <n-button v-if="hasPermission('restaurant')" type="primary" @click="handleAddTable">
               <icon-ic-round-plus class="mr-4px text-20px" />
               Create
             </n-button>
-            <n-button type="error" @click="handleDeleteSelectedTable">
+            <n-button v-if="hasPermission('restaurant')" type="error" @click="handleDeleteSelectedTable">
               <icon-ic-round-delete class="mr-4px text-20px" />
               Delete
+            </n-button>
+            <n-button v-if="hasPermission('customer')" type="success" @click="handleCheckout">
+              <icon-ic-outline-check class="mr-4px text-20px" />
+              checkout
             </n-button>
             <!-- <n-button type="success">
               <icon-uil:export class="mr-4px text-20px" />
@@ -44,25 +48,32 @@
 
 <script setup lang="tsx">
 // import { log, table } from 'console';
+// import { count } from 'console';
 import { reactive, ref, onMounted } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-// import { genderLabels, userStatusLabels } from '@/constants';
-// import { values } from 'lodash';
 import { fetchFoodList } from '@/service';
+import { usePermission } from '@/composables';
 import { useBoolean, useLoading } from '@/hooks';
 import { foodStatusLabels } from '~/src/constants';
+import { useCartStore, useAppStore } from '~/src/store';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
 import ColumnSetting from './components/column-setting.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
+const { hasPermission } = usePermission();
 
+const qtys = ref<number[]>([]);
 const tableData = ref<FoodManagement.Food[]>([]);
 function setTableData(data: FoodManagement.Food[]) {
-  tableData.value = data;
+  if (hasPermission('customer')) tableData.value = data.filter(item => item.status === '1');
+  else tableData.value = data;
+  data.forEach(() => {
+    qtys.value.push(1);
+  });
 }
 
 async function getTableData() {
@@ -108,6 +119,10 @@ const columns: Ref<DataTableColumns<FoodManagement.Food>> = ref([
     key: 'description',
     title: 'description',
     align: 'center'
+    // render: row => {
+    //   if (window.innerWidth > 768) return <span>{row.description}</span>;
+    //   return <span></span>;
+    // }
   },
   {
     key: 'status',
@@ -130,20 +145,37 @@ const columns: Ref<DataTableColumns<FoodManagement.Food>> = ref([
     key: 'actions',
     title: 'actions',
     align: 'center',
-    render: row => {
-      return (
-        <NSpace justify={'center'}>
-          <NButton size={'small'} onClick={() => handleEditTable(row.id)}>
-            edit
-          </NButton>
-          <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
-            {{
-              default: () => 'Confirm to delete?',
-              trigger: () => <NButton size={'small'}>delete</NButton>
-            }}
-          </NPopconfirm>
-        </NSpace>
-      );
+    render: (row, index) => {
+      if (hasPermission('restaurant')) {
+        return (
+          <NSpace justify={'center'}>
+            <NButton size={'small'} onClick={() => handleEditTable(row.id)}>
+              edit
+            </NButton>
+            <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
+              {{
+                default: () => 'Confirm to delete?',
+                trigger: () => <NButton size={'small'}>delete</NButton>
+              }}
+            </NPopconfirm>
+          </NSpace>
+        );
+      } else if (hasPermission('customer')) {
+        return (
+          <NSpace justify={'center'}>
+            <n-input-number min={1} max={10} class="w-100px" v-model:value={qtys.value[index]} />
+            <NButton
+              onClick={() => {
+                window.$message?.success(`added ${qtys.value[index]} ${row.name} to cart`);
+                useCartStore().addItem(row, qtys.value[index]);
+              }}
+            >
+              Buy
+            </NButton>
+          </NSpace>
+        );
+      }
+      return <NSpace></NSpace>;
     }
   }
 ]) as Ref<DataTableColumns<FoodManagement.Food>>;
@@ -184,6 +216,11 @@ function handleDeleteTable(rowId: string) {
   window.$message?.info(`click to deleted rowId: ${rowId}`);
   tableData.value = tableData.value.filter(item => item.id !== rowId);
 }
+const handleCheckout = () => {
+  window.$message?.info('checkout');
+  const app = useAppStore();
+  app.openSettingDrawer();
+};
 
 const pagination: PaginationProps = reactive({
   page: 1,
