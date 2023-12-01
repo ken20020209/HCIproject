@@ -94,7 +94,7 @@ declare namespace ApiOrderManagement {
     // time
     time: string;
     /** 订单状态 */
-    status: '1' | '2' | '3' | '4' | '5' | null;
+    status: '1' | '2' | '3' | '4' | '5' | string | null;
     /** 订单总价 */
     price: number | null;
     /** 订单地址 */

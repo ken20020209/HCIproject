@@ -46,9 +46,9 @@ export const foodStatusOptions = transformObjectToOption(foodStatusLabels);
 
 export const orderStatusLabels: Record<OrderManagement.OrderStatusKey, string> = {
   // english
-  1: 'pending',
-  2: 'confirmed',
-  3: 'delivered',
+  1: 'preparing',
+  2: 'wait pick up',
+  3: 'delivering',
   4: 'completed',
   5: 'cancelled'
 };

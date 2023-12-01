@@ -119,7 +119,7 @@ function handleUpdateFormModel(model: Partial<FormModel>) {
         id: '1',
         name: 'image',
         status: 'finished',
-        url: `${model.image}.png`
+        url: `${model.image}`
       }
     ];
   } else {

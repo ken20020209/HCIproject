@@ -1,29 +1,187 @@
 <template>
-  <div class="h-full overflow-hidden">
+  <div class="h-full">
     <n-card title="Orders" :bordered="false" class="h-full rounded-8px shadow-sm">
-      <n-space :vertical="true">
+      <n-space class="pb-12px" justify="space-between">
         <n-space>
           <n-button @click="getTableData('0')">all</n-button>
-          <n-button @click="getTableData('1')">pending</n-button>
-          <n-button @click="getTableData('2')">confirmed</n-button>
-          <n-button @click="getTableData('3')">delivered</n-button>
+          <n-button @click="getTableData('1')">preparing</n-button>
+          <n-button @click="getTableData('2')">wait pick up</n-button>
+          <n-button @click="getTableData('3')">delivering</n-button>
           <n-button @click="getTableData('4')">completed</n-button>
           <n-button @click="getTableData('5')">cancelled</n-button>
         </n-space>
-        <loading-empty-wrapper class="h-960px" :loading="loading" :empty="empty">
-          <n-data-table :columns="columns" :data="dataSource" :flex-height="true" class="h-960px" default-expand-all />
-        </loading-empty-wrapper>
+        <n-space>
+          <n-button @click="getTableData('6')">work mode</n-button>
+        </n-space>
       </n-space>
+      <loading-empty-wrapper v-if="workMode === false" class="h-960px" :loading="loading" :empty="empty">
+        <n-data-table :columns="columns" :data="dataSource" :flex-height="true" class="h-960px" default-expand-all />
+      </loading-empty-wrapper>
+      <n-grid v-if="workMode === true" cols="12 s:4 m:12 l:12" x-gap="16" y-gap="16">
+        <n-grid-item span="4">
+          <n-layout>
+            <n-card v-for="order in preparingList" :key="order.key" :title="order.key">
+              <n-space>
+                <n-card v-for="food in order.children" :key="food.id" :title="food.name ? food.name : ''" size="small">
+                  <n-space vertical>
+                    <n-image :src="food?.image ? food.image : ''" />
+                    <n-tag>qty:{{ food.quantity }}</n-tag>
+                  </n-space>
+                </n-card>
+              </n-space>
+              <br />
+              <n-space justify="space-between">
+                <n-space>
+                  <n-tag type="success">preparing</n-tag>
+                </n-space>
+                <n-space>
+                  <n-button
+                    v-if="hasPermission('restaurant')"
+                    :on-click="
+                      () => {
+                        handleEdit(order);
+                        // console.log(order.status);
+                      }
+                    "
+                  >
+                    OK
+                  </n-button>
+                  <NPopconfirm
+                    v-if="hasPermission('restaurant')"
+                    :on-positive-click="
+                      () => {
+                        handleDelete(order);
+                      }
+                    "
+                  >
+                    <template #trigger>
+                      <n-button>Cancel</n-button>
+                    </template>
+                    <template #default>Confirm Cancel</template>
+                  </NPopconfirm>
+                  <n-button
+                    :on-click="
+                      () => {
+                        openModal();
+                      }
+                    "
+                  >
+                    detail
+                  </n-button>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-layout>
+        </n-grid-item>
+        <n-grid-item span="4">
+          <n-layout>
+            <n-card v-for="order in waitManList" :key="order.key" :title="order.key">
+              <n-space justify="space-between">
+                <n-space>
+                  <n-tag type="warning">wait pick up</n-tag>
+                </n-space>
+                <n-space>
+                  <n-button
+                    v-if="hasPermission('delivery')"
+                    :on-click="
+                      () => {
+                        handleEdit(order);
+                        // console.log(order.status);
+                      }
+                    "
+                  >
+                    OK
+                  </n-button>
+                  <NPopconfirm
+                    v-if="hasPermission('restaurant')"
+                    :on-positive-click="
+                      () => {
+                        handleDelete(order);
+                      }
+                    "
+                  >
+                    <template #trigger>
+                      <n-button>Cancel</n-button>
+                    </template>
+                    <template #default>Confirm Cancel</template>
+                  </NPopconfirm>
+                  <n-button
+                    :on-click="
+                      () => {
+                        openModal();
+                      }
+                    "
+                  >
+                    detail
+                  </n-button>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-layout>
+        </n-grid-item>
+        <n-grid-item span="4">
+          <n-layout>
+            <n-card v-for="order in WaitPickUpList" :key="order.key" :title="order.key">
+              <n-space justify="space-between">
+                <n-space>
+                  <n-tag type="error">delivering</n-tag>
+                </n-space>
+                <n-space>
+                  <n-button
+                    v-if="hasPermission('delivery')"
+                    :on-click="
+                      () => {
+                        handleEdit(order);
+                        // console.log(order.status);
+                      }
+                    "
+                  >
+                    OK
+                  </n-button>
+                  <NPopconfirm
+                    v-if="hasPermission('delivery')"
+                    :on-positive-click="
+                      () => {
+                        handleDelete(order);
+                      }
+                    "
+                  >
+                    <template #trigger>
+                      <n-button>Cancel</n-button>
+                    </template>
+                    <template #default>Confirm Cancel</template>
+                  </NPopconfirm>
+                  <n-button
+                    :on-click="
+                      () => {
+                        openModal();
+                      }
+                    "
+                  >
+                    detail
+                  </n-button>
+                </n-space>
+              </n-space>
+            </n-card>
+          </n-layout>
+        </n-grid-item>
+
+        <!-- <n-grid-item span="4">123</n-grid-item>
+        <n-grid-item span="4">123</n-grid-item>
+        <n-grid-item span="4">123</n-grid-item> -->
+      </n-grid>
     </n-card>
     <detail v-model:visible="visible" />
   </div>
 </template>
 
 <script setup lang="tsx">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import type { DataTableColumn } from 'naive-ui';
 import { NSpace, NButton, NPopconfirm, NTag } from 'naive-ui';
+import { toInteger } from 'lodash-es';
 import { fetchFoodList, fetchOrderList } from '@/service';
+import { usePermission } from '@/composables';
 import { useLoadingEmpty, useBoolean } from '@/hooks';
 import { orderStatusLabels } from '~/src/constants';
 import detail from './components/detail.vue';
@@ -34,11 +192,23 @@ import detail from './components/detail.vue';
 //   age: number;
 //   address: string;
 // }
-
+const { hasPermission } = usePermission();
 const { bool: visible, setTrue: openModal } = useBoolean();
-
+const workMode = ref(false);
 const { loading, startLoading, endLoading, empty } = useLoadingEmpty();
-
+const dataSource = ref<Order[]>([]);
+const preparingList = computed(() => {
+  return dataSource.value.filter(item => item.status === '1');
+});
+const waitManList = computed(() => {
+  return dataSource.value.filter(item => item.status === '2');
+});
+const WaitPickUpList = computed(() => {
+  return dataSource.value.filter(item => item.status === '3');
+});
+// const completedList = computed(() => {
+//   return dataSource.value.filter(item => item.status === '4');
+// });
 interface Order extends OrderManagement.Order {
   children?: FoodManagement.Food[];
 }
@@ -109,20 +279,20 @@ const columns: DataTableColumn<Order>[] = [
     title: 'Action',
     align: 'center',
     render: row => {
-      if (row.status === '1' || row.status === '2' || row.status === '3') {
+      if ((row.status === '1' && hasPermission('restaurant')) || (row.status === '3' && hasPermission('delivery'))) {
         return (
           <NSpace justify={'center'}>
             <NButton
               size={'small'}
               onClick={() => {
-                handleEdit(row.name);
+                handleEdit(row);
               }}
             >
               OK
             </NButton>
             <NPopconfirm
-              onPositiveClick={() => {
-                handleDelete(row.name);
+              on-positive-click={() => {
+                handleDelete(row);
               }}
             >
               {{
@@ -132,7 +302,44 @@ const columns: DataTableColumn<Order>[] = [
             </NPopconfirm>
             <NButton
               size={'small'}
-              onClick={() => {
+              on-click={() => {
+                openModal();
+              }}
+            >
+              detail
+            </NButton>
+          </NSpace>
+        );
+      } else if (row.status === '2') {
+        if (hasPermission('delivery')) {
+          return (
+            <NSpace justify={'center'}>
+              <NButton
+                size={'small'}
+                on-click={() => {
+                  handleEdit(row);
+                }}
+              >
+                OK
+              </NButton>
+            </NSpace>
+          );
+        }
+        return (
+          <NSpace justify={'center'}>
+            <NPopconfirm
+              on-positive-click={() => {
+                handleDelete(row);
+              }}
+            >
+              {{
+                default: () => 'Confirm Cancel',
+                trigger: () => <NButton size={'small'}>Cancel</NButton>
+              }}
+            </NPopconfirm>
+            <NButton
+              size={'small'}
+              on-click={() => {
                 openModal();
               }}
             >
@@ -144,7 +351,7 @@ const columns: DataTableColumn<Order>[] = [
         return (
           <NButton
             size={'small'}
-            onClick={() => {
+            on-click={() => {
               openModal();
             }}
           >
@@ -156,8 +363,6 @@ const columns: DataTableColumn<Order>[] = [
     }
   }
 ];
-
-const dataSource = ref<Order[]>([]);
 
 // function createDataSource(): OrderManagement.Order[] {
 //   return Array(100)
@@ -191,13 +396,23 @@ const dataSource = ref<Order[]>([]);
 
 async function getTableData(type: string = '0') {
   startLoading();
+
+  if (type === '6') workMode.value = true;
+  else workMode.value = false;
   const { data } = await fetchOrderList();
   const food = await fetchFoodList();
   // console.log(data);
   let cnt = 0;
   if (data) {
     setTimeout(() => {
-      dataSource.value = data.filter(item => item.status === type || type === '0');
+      dataSource.value = data.filter(
+        item =>
+          item.status === type ||
+          type === '0' ||
+          (type === '6' && item.status === '1') ||
+          (type === '6' && item.status === '2') ||
+          (type === '6' && item.status === '3')
+      );
       dataSource.value.forEach((item, index) => {
         // array 1-5
         const rand = Math.floor(Math.random() * 5) + 1;
@@ -215,12 +430,18 @@ async function getTableData(type: string = '0') {
   }
 }
 
-function handleEdit(_name: string) {
+function handleEdit(Order: OrderManagement.Order) {
   window.$message?.info('complete successfully');
+  if (Order.status) Order.status = `${toInteger(Order.status) + 1}`;
 }
 
-function handleDelete(_name: string) {
+function handleDelete(Order: OrderManagement.Order) {
   window.$message?.info('deleted successfully');
+  if (Order.status) Order.status = `${toInteger(Order.status) - 1}`;
+  if (Order.status === '0') {
+    // delete
+    Order.status = '5';
+  }
 }
 
 onMounted(() => {
