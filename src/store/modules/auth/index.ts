@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('auth-store', {
         await route.initAuthRoute();
 
         // 跳转登录后的地址
-        toLoginRedirect();
+        toLoginRedirect(this.userInfo.userRole);
 
         // 登录成功弹出欢迎提示
         if (route.isInitAuthRoute) {

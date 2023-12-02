@@ -65,10 +65,15 @@ export function useRouterPush(inSetup = true) {
   /**
    * 登录成功后跳转重定向的地址
    */
-  function toLoginRedirect() {
+  function toLoginRedirect(role: string) {
     const { query } = route.value;
     if (query?.redirect) {
       routerPush(query.redirect as string);
+    } else {
+      toHome();
+    }
+    if (role === 'customer') {
+      routerPush({ path: '/restaurant' });
     } else {
       toHome();
     }
