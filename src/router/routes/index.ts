@@ -18,7 +18,8 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/landing',
     component: 'self',
     meta: {
-      title: 'Landing'
+      title: 'Landing',
+      singleLayout: 'blank'
     }
   },
   {

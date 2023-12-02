@@ -51,6 +51,7 @@ export default defineConfig(configEnv => {
     build: {
       reportCompressedSize: false,
       sourcemap: false,
+
       commonjsOptions: {
         ignoreTryCatch: false
       }

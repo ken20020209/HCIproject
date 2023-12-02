@@ -48,7 +48,9 @@ defineOptions({ name: 'BasicLayout' });
 const app = useAppStore();
 const theme = useThemeStore();
 const { hasPermission } = usePermission();
+// v-if="hasPermission('customer')"
 
+hasPermission('customer');
 const { mode, isMobile, headerProps, siderVisible, siderWidth, siderCollapsedWidth } = useBasicLayout();
 </script>
 

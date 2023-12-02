@@ -150,6 +150,7 @@ export const useRouteStore = defineStore('route-store', {
           }
         });
       }
+
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
       this.handleAuthRoute(routes);
 
