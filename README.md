@@ -22,6 +22,4 @@ npm run dev
 
 or
 
-open dist file on web server
-
-open landing/index.html
+open dist file on web server then open landing/index.html
