@@ -22,4 +22,6 @@ npm run dev
 
 or
 
+npm build
+
 open dist file on web server then open landing/index.html
