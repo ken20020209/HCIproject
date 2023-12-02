@@ -16,12 +16,9 @@ pw:userD123
 
 setup and start
 
-npm install
-
-npm run dev
-
-or
-
-open dist file on web server
+put this file on web server's root
 
 open landing/index.html
+
+github:
+https://github.com/ken20020209/HCIproject/tree/main

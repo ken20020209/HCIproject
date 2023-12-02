@@ -64,7 +64,7 @@
       <n-grid-item :span="4">
         <n-card title="Order summary">
           <n-space justify="center">
-            <n-grid cols="12" y-gap="16" x-gap="16">
+            <n-grid cols="4 s:8 m:12" y-gap="16" x-gap="16" responsive="screen">
               <n-grid-item v-for="(food, index) in foods" :key="food.id" :span="4">
                 <n-space justify="center">
                   <n-card :title="food.name ? food.name : ''">

@@ -1,1 +1,0 @@
-<template>delivery</template>

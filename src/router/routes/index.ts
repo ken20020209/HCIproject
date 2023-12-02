@@ -14,15 +14,6 @@ export const ROOT_ROUTE: AuthRoute.Route = {
 export const constantRoutes: AuthRoute.Route[] = [
   ROOT_ROUTE,
   {
-    name: 'landing',
-    path: '/landing',
-    component: 'self',
-    meta: {
-      title: 'Landing',
-      singleLayout: 'blank'
-    }
-  },
-  {
     name: 'login',
     path: '/login',
     component: 'self',
