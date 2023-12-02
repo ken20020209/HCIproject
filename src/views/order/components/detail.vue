@@ -3,8 +3,8 @@
     <div style="overflow: auto">
       <n-timeline horizontal>
         <n-timeline-item type="default" content="pending" time="2018-04-03 19:46" />
-        <n-timeline-item type="default" title="confirmed" time="2018-04-03 20:46" />
-        <n-timeline-item type="error" title="delivered" time="2018-04-03 20:46" />
+        <n-timeline-item type="default" title="wait pick up" time="2018-04-03 20:46" />
+        <n-timeline-item type="error" title="delivering" time="2018-04-03 20:46" />
         <n-timeline-item type="default" title="completed" time="" />
       </n-timeline>
     </div>
@@ -29,7 +29,7 @@
               <span>10:22</span>
             </n-card>
             <n-card title="Order status" size="small">
-              <span>delivered</span>
+              <span><n-tag type="error">delivered</n-tag></span>
             </n-card>
           </n-space>
         </n-tab-pane>
@@ -66,10 +66,23 @@
                 <td>2</td>
                 <td>20</td>
               </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td><n-tag type="success" size="large" class="text-18px">$60</n-tag></td>
+              </tr>
             </tbody>
           </n-table>
+          <!-- <n-space justify="end">
+            <n-tag type="success" size="large" class="text-18px">$60</n-tag>
+          </n-space> -->
         </n-tab-pane>
         <n-tab-pane name="Chat">
+          <n-button v-permission="['restaurant', 'delivery']">Customer</n-button>
+          <n-button v-permission="['customer', 'delivery']">Restaurant</n-button>
+          <n-button v-permission="['restaurant', 'customer']">Delivery</n-button>
           <n-card>
             <n-image src="/chat.png"></n-image>
           </n-card>

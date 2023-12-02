@@ -26,7 +26,8 @@
       </n-space>
     </n-drawer-content>
   </n-drawer>
-  <drawer-button v-if="showButton" />
+  <!-- <drawer-button v-if="showButton" /> -->
+  <drawer-button v-permission="'customer'" />
 </template>
 
 <script setup lang="ts">
@@ -43,7 +44,7 @@ const foodCart = useCartStore();
 const foods = foodCart.items;
 const qtys = foodCart.qtys;
 
-const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === 'Y';
+// const showButton = import.meta.env.DEV || import.meta.env.VITE_VERCEL === 'Y';
 
 const totalPrice = computed(() => {
   const count = foods.reduce((acc, food, index) => {

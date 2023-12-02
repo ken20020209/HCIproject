@@ -95,12 +95,12 @@
   </n-card>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, toRefs } from 'vue';
+import { reactive, ref } from 'vue';
 import type { FormInst, FormRules } from 'naive-ui';
 // import { create, rest } from 'lodash';
 import { usePermission } from '@/composables';
 import { useSmsCode } from '@/hooks';
-import { createRequiredFormRule, formRules, getConfirmPwdRule } from '@/utils';
+import { createRequiredFormRule } from '@/utils';
 import { $t } from '@/locales';
 
 const { hasPermission } = usePermission();
@@ -133,11 +133,11 @@ reset();
 // const roles: string[] = ['customer', 'restaurant', 'delivery'];
 
 const rules: FormRules = {
-  phone: formRules.phone,
-  code: formRules.code,
-  pwd: formRules.pwd,
+  // phone: formRules.phone,
+  // code: formRules.code,
+  // pwd: formRules.pwd,
   username: [createRequiredFormRule('Please enter new user name')],
-  confirmPwd: getConfirmPwdRule(toRefs(model).pwd),
+  // confirmPwd: getConfirmPwdRule(toRefs(model).pwd),
   restaurantName: createRequiredFormRule('Please enter new restaurant name'),
   restaurantAddress: createRequiredFormRule('Please enter new restaurant address')
 };

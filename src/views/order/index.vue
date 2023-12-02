@@ -324,29 +324,29 @@ const columns: DataTableColumn<Order>[] = [
               </NButton>
             </NSpace>
           );
-        }
-        return (
-          <NSpace justify={'center'}>
-            <NPopconfirm
-              on-positive-click={() => {
-                handleDelete(row);
-              }}
-            >
-              {{
-                default: () => 'Confirm Cancel',
-                trigger: () => <NButton size={'small'}>Cancel</NButton>
-              }}
-            </NPopconfirm>
-            <NButton
-              size={'small'}
-              on-click={() => {
-                openModal();
-              }}
-            >
-              detail
-            </NButton>
-          </NSpace>
-        );
+        } else if (hasPermission('restaurant'))
+          return (
+            <NSpace justify={'center'}>
+              <NPopconfirm
+                on-positive-click={() => {
+                  handleDelete(row);
+                }}
+              >
+                {{
+                  default: () => 'Confirm Cancel',
+                  trigger: () => <NButton size={'small'}>Cancel</NButton>
+                }}
+              </NPopconfirm>
+              <NButton
+                size={'small'}
+                on-click={() => {
+                  openModal();
+                }}
+              >
+                detail
+              </NButton>
+            </NSpace>
+          );
       } else if (row.status !== null) {
         return (
           <NButton
@@ -359,7 +359,16 @@ const columns: DataTableColumn<Order>[] = [
           </NButton>
         );
       }
-      return <span></span>;
+      return (
+        <NButton
+          size={'small'}
+          on-click={() => {
+            openModal();
+          }}
+        >
+          detail
+        </NButton>
+      );
     }
   }
 ];

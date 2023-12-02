@@ -13,7 +13,7 @@
       <theme-mode />
       <!-- <toggle-lang /> -->
       <system-message />
-      <setting-button v-if="showButton" />
+      <setting-button v-if="showButton" v-permission="'customer'" />
       <user-avatar />
     </div>
   </dark-mode-container>

@@ -1,11 +1,11 @@
 <template>
   <hover-container
     class="w-40px h-full"
-    tooltip-content="主题配置"
+    tooltip-content="Cart"
     :inverted="theme.header.inverted"
     @click="app.toggleSettingDrawerVisible"
   >
-    <icon-ant-design-setting-outlined class="text-20px" />
+    <icon-mdi-cart class="text-20px" />
   </hover-container>
 </template>
 

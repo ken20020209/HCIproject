@@ -64,24 +64,30 @@
       <n-grid-item :span="4">
         <n-card title="Order summary">
           <n-space justify="center">
-            <n-space justify="center">
-              <n-card v-for="(food, index) in foods" :key="food.id" :title="food.name ? food.name : ''">
-                <!-- {{ food.name }} -->
-                <n-image v-if="food.image" :src="food.image" />
-                <n-space>
-                  <n-input-number v-model:value="qtys[index]" :min="1" :max="10" class="w-100px" />
-                  <n-button @click="foodCart.removeItem(index)">Remove</n-button>
+            <n-grid cols="12" y-gap="16" x-gap="16">
+              <n-grid-item v-for="(food, index) in foods" :key="food.id" :span="4">
+                <n-space justify="center">
+                  <n-card :title="food.name ? food.name : ''">
+                    <!-- {{ food.name }} -->
+                    <n-image v-if="food.image" :src="food.image" />
+                    <n-space>
+                      <n-input-number v-model:value="qtys[index]" :min="1" :max="10" class="w-100px" />
+                      <n-button @click="foodCart.removeItem(index)">Remove</n-button>
+                    </n-space>
+                    <n-space v-if="food.price">Price: ${{ food.price }}</n-space>
+                    <n-space v-if="food.price">Sub total: ${{ food.price * qtys[index] }}</n-space>
+                  </n-card>
                 </n-space>
-                <n-space v-if="food.price">Price: ${{ food.price }}</n-space>
-                <n-space v-if="food.price">Sub total: ${{ food.price * qtys[index] }}</n-space>
-              </n-card>
-            </n-space>
+              </n-grid-item>
 
-            <n-space justify="center">
-              <n-tag type="success" size="large">Total: ${{ totalPrice }}</n-tag>
-              <n-button type="error" @click="foodCart.clearCart()">Clear Cart</n-button>
-              <n-button type="success" @click="handlePay">PAY</n-button>
-            </n-space>
+              <n-grid-item :span="12">
+                <n-space justify="center">
+                  <n-tag type="success" size="large">Total: ${{ totalPrice }}</n-tag>
+                  <n-button type="error" @click="foodCart.clearCart()">Clear Cart</n-button>
+                  <n-button type="success" @click="handlePay">PAY</n-button>
+                </n-space>
+              </n-grid-item>
+            </n-grid>
           </n-space>
         </n-card>
       </n-grid-item>
