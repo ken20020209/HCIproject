@@ -5,7 +5,10 @@
         v-for="(item, index) in list"
         :key="item.id"
         class="hover:bg-#f6f6f6 dark:hover:bg-dark cursor-pointer"
-        @click="handleRead(index)"
+        @click="
+          handleRead(index);
+          openModal();
+        "
       >
         <n-thing class="px-15px" :class="{ 'opacity-30': item.isRead }">
           <template #avatar>
@@ -33,8 +36,15 @@
       </n-list-item>
     </n-list>
   </n-scrollbar>
+  <detail v-model:visible="visible" />
 </template>
+
 <script lang="ts" setup>
+import { useBoolean } from '@/hooks';
+import detail from '@/views/order/components/detail.vue';
+
+const { bool: visible, setTrue: openModal } = useBoolean();
+
 defineOptions({ name: 'MessageList' });
 
 interface Props {

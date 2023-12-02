@@ -1,7 +1,12 @@
 <template>
-  <n-popover class="!p-0" trigger="click" placement="bottom">
+  <n-popover class="!p-0" trigger="manual" placement="bottom" :show="showPopover">
     <template #trigger>
-      <hover-container tooltip-content="消息通知" :inverted="theme.header.inverted" class="relative w-40px h-full">
+      <hover-container
+        tooltip-content="Message Notification"
+        :inverted="theme.header.inverted"
+        class="relative w-40px h-full"
+        @click="showPopover = !showPopover"
+      >
         <icon-clarity:notification-line class="text-18px" />
         <n-badge
           :value="count"
@@ -40,11 +45,12 @@
       </n-tab-pane>
     </n-tabs>
     <div v-if="showAction" class="flex border-t border-$n-divider-color cursor-pointer">
-      <div class="flex-1 text-center py-10px" @click="handleClear">清空</div>
-      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleAllRead">全部已读</div>
-      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleLoadMore">查看更多</div>
+      <div class="flex-1 text-center py-10px" @click="handleClear">clear</div>
+      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleAllRead">All read</div>
+      <div class="flex-1 text-center py-10px border-l border-$n-divider-color" @click="handleLoadMore">check more</div>
     </div>
   </n-popover>
+  <!-- <detail v-model:visible="visible" /> -->
 </template>
 
 <script lang="ts" setup>
@@ -52,6 +58,7 @@ import { computed, ref } from 'vue';
 import { useThemeStore } from '@/store';
 import { useBasicLayout } from '@/composables';
 import { useBoolean } from '@/hooks';
+// import detail from '@/views/order/components/detail.vue';
 import MessageList from './message-list.vue';
 
 defineOptions({ name: 'SystemMessage' });
@@ -59,130 +66,132 @@ defineOptions({ name: 'SystemMessage' });
 const theme = useThemeStore();
 const { isMobile } = useBasicLayout();
 const { bool: loading, setBool: setLoading } = useBoolean();
+const showPopover = ref(false);
 
 const currentTab = ref(0);
+// const { bool: visible, setTrue: openModal } = useBoolean();
 
 const tabData = ref<App.MessageTab[]>([
   {
     key: 1,
-    name: '通知',
+    name: 'Notification',
     badgeProps: { type: 'warning' },
     list: [
-      { id: 1, icon: 'ri:message-3-line', title: '你收到了5条新消息', date: '2022-06-17' },
-      { id: 4, icon: 'ri:message-3-line', title: 'Soybean Admin 1.0.0 版本正在筹备中', date: '2022-06-17' },
-      { id: 2, icon: 'ri:message-3-line', title: 'Soybean Admin 0.9.6 版本发布了', date: '2022-06-16' },
-      { id: 3, icon: 'ri:message-3-line', title: 'Soybean Admin 0.9.5 版本发布了', date: '2022-06-07' },
+      { id: 1, icon: 'ri:message-3-line', title: 'Food ready', date: '2022-06-17' },
+      { id: 4, icon: 'ri:message-3-line', title: 'Food coming', date: '2022-06-17' },
+      { id: 2, icon: 'ri:message-3-line', title: 'Food process', date: '2022-06-16' },
+      { id: 3, icon: 'ri:message-3-line', title: 'Food cancel ', date: '2022-06-07' },
       {
         id: 5,
         icon: 'ri:message-3-line',
-        title: '测试超长标题测试超长标题测试超长标题测试超长标题测试超长标题测试超长标题测试超长标题测试超长标题',
+        title: 'error',
         date: '2022-06-17'
       }
     ]
   },
   {
     key: 2,
-    name: '消息',
+    name: 'message',
     badgeProps: { type: 'error' },
     list: [
       {
         id: 1,
-        title: '项目动态',
+        title: 'order id :123',
         svgIcon: 'avatar',
-        description: 'Soybean 刚才把工作台页面随便写了一些，凑合能看了！',
+        description: 'where are you',
         date: '2021-11-07 22:45:32'
       },
       {
-        id: 2,
-        title: '项目动态',
+        id: 1,
+        title: 'order id :1283',
         svgIcon: 'avatar',
-        description: 'Soybean 正在忙于为soybean-admin写项目说明文档！',
-        date: '2021-11-03 20:33:31'
+        description: 'where are you',
+        date: '2021-11-07 22:45:32'
       },
-      {
-        id: 3,
-        title: '项目动态',
-        svgIcon: 'avatar',
-        description: 'Soybean 准备为soybean-admin 1.0的发布做充分的准备工作！',
-        date: '2021-10-31 22:43:12'
-      },
-      {
-        id: 4,
-        title: '项目动态',
-        svgIcon: 'avatar',
-        description: '@yanbowe 向soybean-admin提交了一个bug，多标签栏不会自适应。',
-        date: '2021-10-27 10:24:54'
-      },
-      {
-        id: 5,
-        title: '项目动态',
-        svgIcon: 'avatar',
-        description: 'Soybean 在2021年5月28日创建了开源项目soybean-admin！',
-        date: '2021-05-28 22:22:22'
-      }
-    ]
-  },
-  {
-    key: 3,
-    name: '待办',
-    badgeProps: { type: 'info' },
-    list: [
       {
         id: 1,
-        icon: 'ri:calendar-todo-line',
-        title: '缓存主题配置',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
+        title: 'order id :1243',
+        svgIcon: 'avatar',
+        description: 'late 30 min',
+        date: '2021-11-07 22:45:32'
       },
       {
-        id: 2,
-        icon: 'ri:calendar-todo-line',
-        title: '添加锁屏组件、全局Iframe组件',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
+        id: 1,
+        title: 'order id :144',
+        svgIcon: 'avatar',
+        description: 'where are you',
+        date: '2021-11-07 22:45:32'
       },
       {
-        id: 3,
-        icon: 'ri:calendar-todo-line',
-        title: '示例页面完善',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
-      },
-      {
-        id: 4,
-        icon: 'ri:calendar-todo-line',
-        title: '表单、表格示例',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
-      },
-      {
-        id: 5,
-        icon: 'ri:calendar-todo-line',
-        title: '性能优化(优化递归函数)',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
-      },
-      {
-        id: 6,
-        icon: 'ri:calendar-todo-line',
-        title: '精简版(新分支thin)',
-        description: '任务正在计划中',
-        date: '2022-06-17',
-        tagTitle: '未开始',
-        tagProps: { type: 'default' }
+        id: 1,
+        title: 'order id :1233',
+        svgIcon: 'avatar',
+        description: 'The food on the door',
+        date: '2021-11-07 22:45:32'
       }
     ]
   }
+  // {
+  //   key: 3,
+  //   name: '待办',
+  //   badgeProps: { type: 'info' },
+  //   list: [
+  //     {
+  //       id: 1,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '缓存主题配置',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     },
+  //     {
+  //       id: 2,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '添加锁屏组件、全局Iframe组件',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     },
+  //     {
+  //       id: 3,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '示例页面完善',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     },
+  //     {
+  //       id: 4,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '表单、表格示例',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     },
+  //     {
+  //       id: 5,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '性能优化(优化递归函数)',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     },
+  //     {
+  //       id: 6,
+  //       icon: 'ri:calendar-todo-line',
+  //       title: '精简版(新分支thin)',
+  //       description: '任务正在计划中',
+  //       date: '2022-06-17',
+  //       tagTitle: '未开始',
+  //       tagProps: { type: 'default' }
+  //     }
+  //   ]
+  // }
 ]);
 
 const count = computed(() => {
