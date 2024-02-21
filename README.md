@@ -3,16 +3,16 @@
 user ac and pwd
 
 customer
-ac:userC
-pw:userC123
+ac:UserC
+pw:UserC123
 
 restaurant
-ac:userR
-pw:userR123
+ac:UserR
+pw:UserR123
 
 delivery
-ac:userD
-pw:userD123
+ac:UserD
+pw:UserD123
 
 setup and start
 
